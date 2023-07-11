@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Game Id:</th>
+                    <th>Name:</th>
+                    <th>Year:</th>
+                    <th>Ranking:</th>
+                    <th>Users Rated:</th>
+                    <th>URL:</th>
+                    <th>Image:</th>
+                </tr>
+            </thead>
+            <tbody th:object="${boardgame}">
+                <tr>
+                    <td>
+                        <span th:text="*{gid}"></span>
+                    </td>
+                    <td>
+                        <span th:text="*{name}"></span>
+                    </td>
+                    <td>
+                        <span th:text="*{year}"></span>
+                    </td>
+                    <td>
+                        <span th:text="*{ranking}"></span>
+                    </td>
+                    <td>
+                        <span th:text="*{users_rated}"></span>
+                    </td>
+                    <td>
+                        <a th:href="*{url}">
+                            <span th:text="*{url}"></span>
+                        </a>
+                    </td>
+                    <td>
+                        <img th:src="*{image}" width="100" alt="">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <hr>
+        Top comments:
+        <br>
+        <div th:each="comment : ${comments}">
+            <br>
+            <div>
+                <span th:text="${comment.c_text}"></span>
+                <br>
+                User: 
+                <span th:text="${comment.user}"></span>
+                <br>
+                Rating: 
+                <span th:text="${comment.rating}"></span>
+                <br>
+                <br>
+                <br>
+            </div>
+        </div>
+        <hr>
+
+        Comment:
+        <br>
+        <form action="#" method="POST" th:action="@{/api/comment}" th:object="${comment}">
+            User:
+            &emsp; &ensp;   
+            <input type="text" th:field="*{user}">
+            <br>
+            Rating:
+            &emsp;
+            <input type="text" th:field="*{rating}">
+            <br>
+            Comment: 
+            <textarea th:field="*{c_text}" cols="50" rows="10"></textarea>
+            <button type="submit">Post</button>
+        </form>
+
+        <br>
+        <br>
+        <form action="#" method="GET" th:action="@{/api/form}">
+            <button type="submit">Back</button>
+        </form>
+    </body>
+</html>
